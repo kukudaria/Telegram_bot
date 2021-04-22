@@ -1,19 +1,20 @@
-import requests
-from geopy.geocoders import Nominatim
+from sqlalchemy import *
+from settings import path_to_db
 
-loc = 'Tokyo'
-geolocator = Nominatim(user_agent="my_request")
-location = geolocator.geocode(loc)
-#map_request = 'http://static-maps.yandex.ru/1.x/?ll=' + str(location.longitude) + ',' + str(location.latitude) + '&spn=5,5&l=sat'
-map_request = 'https://static-maps.yandex.ru/1.x/?l=map&pt=' + str(location.longitude) + ',' + str(location.latitude)
-response = requests.get(map_request)
-
-map_file = "map.png"
-with open(map_file, "wb") as file:
-    file.write(response.content)
-
-
-
-#printing address and coordinates
-print(location.address)
-print((location.latitude, location.longitude))
+engine = create_engine(path_to_db)
+connection = engine.connect()
+metadata = MetaData()
+cities_ = ["Paris", "London", "Saint Petersburg", "Barcelona", "Berlin", "Madrid",
+           "Kyiv", "Birmingham", "Rome", "Manchester", "Minsk", "Bucharest", "Vienna",
+           "Hamburg", "Warsaw", "Budapest", "Newcastle", "Munich", "Belgrade", "Milan",
+           "Sofia", "Prague", "Sevilla", "Dublin", "Copenhagen", "Cologne", "Amsterdam",
+           "Odesa", "Rotterdam", "Stockholm", "Zagreb", "Riga", "Oslo", "Athens", "Helsinki",
+           "Skopje", "Dnipro", "Glasgow", "Naples", "Turin", "Marseille", "Liverpool", "Portsmouth",
+           "Valencia", "Nottingham", "Krakow", "Frankfurt", "Bristol", "Lviv", "Bremen", "Grenoble",
+           "Lodz", "Sheffield", "Palermo", "Zaragoza", "Wroclaw", "Nantes", "Stuttgart", "Dusseldorf", "Gothenburg"]
+cities = Table('cities', metadata,
+        Column('city_id', Integer, primary_key=True),
+        Column('city', String(16), nullable=False)
+    )
+for i in range(len(cities_)):
+    connection.execute(cities.insert(), {"city_id": i, "city": str(cities_[i])})

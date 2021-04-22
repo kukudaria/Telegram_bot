@@ -16,20 +16,5 @@ statistics = Table('statistics', metadata,
                 Column('right_answers', Integer),
                 Column('wrong_answers', Integer)
                   )
-stmt = (
-                update(self.statistics).
-                    where(user_id.c.id == user_id).
-                    values(right_answer=right_answer)
-            )
 
-
-
-stmt = (
-    update(statistics).
-    where(user_id.c.id == user_id).
-    values(right_answer=rigtht_answer)
-)
-
-
-connection.execute(statistics.insert(), {"user_id": i, "city": str(cities_[i])})
 statistics.create(engine)
