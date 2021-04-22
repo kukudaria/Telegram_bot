@@ -20,15 +20,6 @@ class BotWrapper:
         self.engine = create_engine(path_to_db, connect_args={'check_same_thread': False})
         self.connection = self.engine.connect()
         self.metadata = MetaData()
-        self.cities_ = ["Paris", "London", "Saint Petersburg", "Barcelona", "Berlin", "Madrid",
-                   "Kyiv", "Birmingham", "Rome", "Manchester", "Minsk", "Bucharest", "Vienna",
-                   "Hamburg", "Warsaw", "Budapest", "Newcastle", "Munich", "Belgrade", "Milan",
-                   "Sofia", "Prague", "Sevilla", "Dublin", "Copenhagen", "Cologne", "Amsterdam",
-                   "Odesa", "Rotterdam", "Stockholm", "Zagreb", "Riga", "Oslo", "Athens", "Helsinki",
-                   "Skopje", "Dnipro", "Glasgow", "Naples", "Turin", "Marseille", "Liverpool", "Portsmouth",
-                   "Valencia", "Nottingham", "Krakow", "Frankfurt", "Bristol", "Lviv", "Bremen", "Grenoble",
-                   "Lodz", "Sheffield", "Palermo", "Zaragoza", "Wroclaw", "Nantes", "Stuttgart", "Dusseldorf",
-                   "Gothenburg"]
         self.cities = Table('cities', self.metadata,
                        Column('city_id', Integer, primary_key=True),
                        Column('city', String(16), nullable=False)
@@ -78,7 +69,7 @@ class BotWrapper:
             tag = str(i + 1)
             button = InlineKeyboardButton(tag, callback_data=self.out[i] + ',' + self.asked_city + ',' + right_answer)
             self.button_list.append(button)
-        self.message = 'Под какой цифрой находится ' + str(self.asked_city) + '?'
+        self.message = 'What number is ' + str(self.asked_city) + '?'
         self.keyboard = InlineKeyboardMarkup([self.button_list])
 
     def callback_message(self, update, context):
