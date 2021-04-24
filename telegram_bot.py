@@ -1,16 +1,14 @@
 from telegram.ext import Updater, MessageHandler, Filters, CallbackQueryHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, KeyboardButton, ReplyKeyboardMarkup
-from settings import TOKEN
+from settings import TOKEN, path_to_db
 from geopy.geocoders import Nominatim
 from sqlalchemy import *
 from sqlalchemy.sql import select
-from settings import path_to_db
 import requests
 import random
 from datetime import datetime
 import logging
 
-apikey = "40d1649f-0493-4b70-98ba-98533de7710b"
 
 
 class BotWrapper:
