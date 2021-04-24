@@ -115,15 +115,12 @@ class BotWrapper:
         timestamp = self.connection.execute(
             select(self.statistics.c.stamp).where(self.statistics.c.user_id == user_id)).all()
         stamp = [item for t in timestamp for item in t]
-        print(right, wrong, stamp)
         if callback_data[3] in stamp:
             if callback_data[0] == callback_data[1]:
                 for i in right:
                     self.connection.execute(self.statistics.update().where(self.statistics.c.user_id == user_id), {'right_answers': int(i) + 1})
                     for j in wrong:
-                        print(i, j)
                         statistic = int((i + 1) / (i + j + 1) * 100)
-                        print(statistic)
                 context.bot.send_message(update.callback_query.message.chat.id, f'Great!\n{statistic}% of your answers are correct.')
 
             else:
