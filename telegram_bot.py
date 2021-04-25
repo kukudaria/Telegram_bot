@@ -77,7 +77,7 @@ class BotWrapper:
         user_id = update.message.from_user.id
         self.connection.execute(self.statistics.update().where(self.statistics.c.user_id == user_id),
                                 {'right_answers': 0, 'wrong_answers': 0})
-        context.bot.send_message(update.message.chat.id, "Your statistics is reseted")
+        context.bot.send_message(update.message.chat.id, "Your statistics is reset")
 
     def create_message(self, update, context):
         now = datetime.now()
